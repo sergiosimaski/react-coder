@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { ItemListContainer } from "./componentes/ItemListContainer/ItemListContainer";
+import { ItemDetailContainer } from "./componentes/ItemDetailContainer/ItemDetailContainer"
+import { CartScreen } from './componentes/CartScreen/CartScreen'
+import { NavBar } from "./componentes/NavBar/NavBar";
+import { ItemCount } from './componentes/ItemCount/ItemCount';
+//import { Pika } from './components/Pika/Pika';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Navigate,
+  Route,
+} from 'react-router-dom'
+import { CartProvider } from './componentes/context/CartContext'
+// import { UiProvider } from './components/context/UiContext';
+// 
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+      <CartProvider >
+        <div className='App'>
+          <Router>
+            <NavBar />
+            <Routes>
+              <Route path='/' element={<ItemListContainer />} />
+              <Route path='/productos/:categoryId' element={<ItemListContainer />} />
+              <Route path='/detail/:itemId' element={<ItemDetailContainer />} />
+              <Route path='/counter' element={<ItemCount />} />
+              <Route path='/cart' element={<CartScreen />} />
+              {/* <Route path='/pika' element={<Pika />} /> */}
+              <Route path='*' element={<Navigate to='/' />} />
+            </Routes>
+          </Router>
+        </div>
+      </CartProvider>
+   
   );
 }
 
